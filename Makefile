@@ -6,42 +6,41 @@
 #    By: agrimald <agrimald@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/30 16:17:06 by agrimald          #+#    #+#              #
-#    Updated: 2023/07/05 19:06:06 by agrimald         ###   ########.fr        #
+#    Updated: 2023/07/05 19:51:05 by agrimald         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
+CFLAGS = -Wall -Wextra -Werror
 NAME = libftprintf.a
-ARC = ar rcs
+AR = ar rc
 RM = rm -f
-CCFLAGS = -Wall -Wextra -Werror
+HEADER = ft_printf.h
 
-
-SRCS =  ft_printf.c \
+SRCS = ft_printf.c \
 		ft_print_char.c \
 		ft_print_string.c \
-		ft_print_pointer.c \
-		ft_print_hex.c \
+		ft_print_number.c \
 		ft_print_unsigned.c \
-		ft_print_number.c 
+		ft_print_hex.c \
+		ft_print_pointer.c \
 
 OBJS = $(SRCS:.c=.o)
 
-HEADER = ft_printf.h
+all: $(NAME)
 
-all = $(NAME)
+$(NAME): $(OBJS)
 
-$(NAME): $(OBJS) $(HEADER)
-	$(ARC) $(NAME) $(OBJS)
+		$(AR) $(NAME) $(OBJS)
 
-%.o: %.c  
-	$(CC) $(CCFLAGS) -c $< -o $@
+%.o: %.c $(HEADER) $(HEADER_LIBFT)
+		$(CC) $(CFLAGS) -c $< -o $@
 
-clean:
-	$(RM) $(OBJS)
+clean: 
+		$(RM) $(OBJS)
 
 fclean: clean
-	$(RM) $(NAME)
+		$(RM) $(NAME)
 
 re: fclean all
 
