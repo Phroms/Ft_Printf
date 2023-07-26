@@ -5,29 +5,29 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: agrimald <agrimald@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/05 12:47:04 by agrimald          #+#    #+#             */
-/*   Updated: 2023/07/05 18:31:51 by agrimald         ###   ########.fr       */
+/*   Created: 2023/07/25 18:42:45 by agrimald          #+#    #+#             */
+/*   Updated: 2023/07/26 19:59:43 by agrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static	void	print_pointer(unsigned long pointer, int *longi)
+static void	static_print_pointer(unsigned long pointer, int *count)
 {
 	char	*hex;
 
 	hex = "0123456789abcdef";
-	if (*longi != -1)
+	if (*count != -1)
 	{
-		if (pointer >= 16 && *longi != -1)
-			print_pointer(pointer / 16, longi);
-		if (*longi != -1 && ft_print_char(hex[pointer % 16], longi) == -1)
-			*longi = -1;
+		if (pointer >= 16 && *count != -1)
+			static_print_pointer(pointer / 16, count);
+		if (*count != -1 && print_char(hex[pointer % 16], count) == -1)
+			*count = -1;
 	}
 }
 
-void	ft_print_pointer(unsigned long pointer, int *longi)
+void	print_pointer(unsigned long pointer, int *count)
 {
-	ft_print_string("0x", longi);
-	print_pointer(pointer, longi);
+	print_string("0x", count);
+	static_print_pointer(pointer, count);
 }

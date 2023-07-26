@@ -1,22 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_char.c                                    :+:      :+:    :+:   */
+/*   print_char.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agrimald <agrimald@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/01 13:16:42 by agrimald          #+#    #+#             */
-/*   Updated: 2023/07/05 19:00:53 by agrimald         ###   ########.fr       */
+/*   Created: 2023/07/25 14:54:24 by agrimald          #+#    #+#             */
+/*   Updated: 2023/07/26 20:07:33 by agrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_print_char(char c, int *longi)
+int	print_char(char c, int *count)
 {
-	if (write(1, &c, 1) == -1)
-		*longi = -1;
+	int	result;
+
+	result = 0;
+	if (*count != -1)
+		result = write(1, &c, 1);
+	if (result == -1)
+	{
+		*count = -1;
+		return (-1);
+	}
 	else
-		*longi += 1;
-	return (*longi);
+	{
+		*count += 1;
+		return (*count);
+	}
+}
+
+void	print_string(char *str, int *count)
+{
+	size_t	i;
+
+	i = 0;
+	if (!str || str == NULL)
+	{
+		print_string("(null)", count);
+		return ;
+	}
+	while (str[i] != '\0' && *count != -1)
+	{
+		print_char(str[i], count);
+		i++;
+	}
 }

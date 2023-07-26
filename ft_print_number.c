@@ -5,29 +5,37 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: agrimald <agrimald@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/30 15:24:19 by agrimald          #+#    #+#             */
-/*   Updated: 2023/07/05 18:31:26 by agrimald         ###   ########.fr       */
+/*   Created: 2023/07/25 15:23:24 by agrimald          #+#    #+#             */
+/*   Updated: 2023/07/26 21:42:24 by agrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_print_number(int a, int *longi)
+void	print_number(int number, int *count)
 {
-	unsigned int	ui;
-
-	if (a < 0 && *longi != -1)
+	if (number == -2147483648)
 	{
-		ui = (unsigned int) - a;
-		if (ft_print_char('-', longi) == -1)
-			*longi = -1;
+		print_string("-2147483648", count);
+		return ;
+	}
+	if (number < 0)
+	{
+		print_char('-', count);
+		if (*count == -1)
+			return ;
+		print_number(number * -1, count);
+		if (*count == -1)
+			return ;
 	}
 	else
-		ui = (unsigned int) a;
-	if (ui > 9 && *longi != -1)
 	{
-		ft_print_number(ui / 10, longi);
+		if (number > 9)
+			print_number(number / 10, count);
+		if (*count == -1)
+			return ;
+		print_char(number % 10 + '0', count);
+		if (*count == -1)
+			return ;
 	}
-	if (*longi != -1 && ft_print_char((ui % 10) + '0', longi) == -1)
-		*longi = -1;
 }
