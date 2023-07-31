@@ -6,7 +6,7 @@
 /*   By: agrimald <agrimald@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 16:07:39 by agrimald          #+#    #+#             */
-/*   Updated: 2023/07/26 21:49:37 by agrimald         ###   ########.fr       */
+/*   Updated: 2023/07/27 14:49:58 by agrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,12 @@ void	print_hexa(int n, int *count, char c)
 void	print_unsigned(unsigned int u, int *count)
 {
 	if (u >= 10)
+	{
 		print_unsigned(u / 10, count);
-	print_char(u % 10 + '0', count);	
+		if (*count == -1)
+			return ;
+	}
+	print_char(u % 10 + '0', count);
+	if (*count == -1)
+		return ;
 }

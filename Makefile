@@ -6,7 +6,7 @@
 #    By: agrimald <agrimald@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/24 17:44:12 by agrimald          #+#    #+#              #
-#    Updated: 2023/07/26 20:06:51 by agrimald         ###   ########.fr        #
+#    Updated: 2023/07/27 14:55:51 by agrimald         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	$(ARC) $(NAME) $(OBJS)
 
-%.o: %.c $(HEADER)
+%.o: %.c $(HEADER) Makefile
 		$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
